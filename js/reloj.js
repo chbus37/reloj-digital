@@ -20,6 +20,27 @@ export  function relojDigital(reloj,btnIniciar,btnParar){
     })
 }
 
-export function alarma(){
+export function alarma(sonido,btnIniciar,btnParar){
+    let alarmaTempo;
+    const $alarma = d.createElement("audio");
+    $alarma.src = sonido;
 
+    d.addEventListener("click", (e) => {
+        if(e.target.matches(btnIniciar)){
+            alarmaTempo = setTimeout(() => {
+                $alarma.play();
+            }, 2000);
+
+            e.target.disabled = true;
+        }
+
+        if(e.target.matches(btnParar)){
+            clearTimeout(alarmaTempo);
+            //! Para pausar el sonido
+            $alarma.pause();
+            $alarma.currentTime = 0;
+            d.querySelector(btnIniciar).disabled = false;
+            
+        }
+    })
 }
